@@ -15,4 +15,12 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-card *ngFor="let n of notes" (click)="openNote(n)">
+    <ion-card-header>
+      {{n.title}}
+    </ion-card-header>
+    <ion-card-content>
+      {{n.content}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
