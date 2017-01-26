@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { NotePage } from '../note/note';
 import { Data } from '../../providers/data';
 
@@ -11,7 +11,7 @@ import { Data } from '../../providers/data';
 })
 export class Home {
 	public notes = [];
-  constructor(public navCtrl: NavController, public dataService: Data) {
+  constructor(public navCtrl: NavController, public dataService: Data, public events: Events) {
     // this.notes = [{title: "note1", content: "note1 content"},
     // 							{title: "note2", content: "note2 content"},
     // 							{title: "note3", content: "note3 content"}
@@ -21,6 +21,13 @@ export class Home {
   ionViewDidLoad(){
   	console.log("home view loaded");
   	this.notes = this.dataService.getAll();
+  	console.log("notes", this.notes);
+  	this.events.subscribe('note:saved', (note, timeStamp) => {
+		  // user and time are the same arguments passed in `events.publish(user, time)`
+		  
+		  this.notes = this.dataService.getAll();
+		  // console.log("notes", this.notes);
+		});
   }
 
   openNote(note){
@@ -35,4 +42,7 @@ export class Home {
     	note: {}
   	});
   }
+
+	
+
 }

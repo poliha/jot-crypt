@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { Data } from '../../providers/data';
+
 /*
   Generated class for the Note page.
 
@@ -17,7 +18,7 @@ export class NotePage {
 	public content;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  					public dataService: Data) {
+  					public dataService: Data, public events: Events) {
 
   }
 
@@ -42,6 +43,7 @@ export class NotePage {
   	};
   	console.log("newnote: ", newItem);
   	this.dataService.set(newItem);
+  	this.events.publish('note:saved', newItem, timeStamp);
   }
 
 }

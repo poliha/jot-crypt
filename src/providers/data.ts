@@ -24,13 +24,13 @@ export class Data {
 
   set(data){
   	let newData = JSON.stringify(data);
-  	this.storage.set(data.updated_at, newData);
+  	this.storage.set(data.updated_at.toString(), newData);
   }
 
   getAll(){
   	let allNotes = []
   	this.storage.forEach((value,key,iterationNumber) => {
-  		allNotes.push(value);
+  		allNotes.push(JSON.parse(value));
   	});
   	return allNotes;
   }
