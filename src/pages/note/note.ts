@@ -29,21 +29,19 @@ export class NotePage {
 
   logVal(title){
   	console.log("title is: ", title);
-  	let today = new Date();
-  	let timeStamp = today.now();
-  	console.log("today: ", today, " TS: ",timeStamp);
+  	
   }
 
   saveNote(){
-  	let today = new Date();
-  	let timeStamp = today.now();
+  	
+  	let timeStamp = Date.now();
   	let newItem = {
   		title: this.title,
   		content: this.content,
   		updated_at: timeStamp
   	};
-
-  	this.dataService.set(newItem)
+  	console.log("newnote: ", newItem);
+  	this.dataService.set(newItem);
   }
 
 }
