@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import { NotePage } from '../note/note';
 
 @Component({
   selector: 'page-home',
@@ -18,5 +19,11 @@ export class Home {
   ionViewDidLoad(){
   	console.log("home view loaded");
   }
-  
+
+  openNote(note){
+  	console.log("note", note);
+  	this.navCtrl.push(NotePage, {
+    	note: note
+  	});
+  }
 }

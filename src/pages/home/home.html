@@ -15,7 +15,7 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
-  <ion-card *ngFor="let n of notes" (click)="openNote(n)">
+  <ion-card *ngFor="let n of notes" (click)="openNote(n)" class="half-life">
     <ion-card-header>
       {{n.title}}
     </ion-card-header>

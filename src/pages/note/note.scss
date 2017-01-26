@@ -1,0 +1,12 @@
+$textarea-height: 100%;
+page-note {
+	.txh{
+		height: $textarea-height;
+		padding-bottom: 0px;
+	}
+
+	textarea{
+		height: inherit;
+	}
+}
+
