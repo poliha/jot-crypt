@@ -1,6 +1,7 @@
+import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
-import { Storage } from '@ionic/storage';
+
 // import 'rxjs/add/operator/map';
 
 /*
@@ -17,13 +18,21 @@ export class Data {
   }
 
 
-  get(){
-  	return this.storage.get('notes');
+  get(timestamp){
+  	return this.storage.get(timestamp);
   }
 
   set(data){
   	let newData = JSON.stringify(data);
-  	this.storage.set('notes', newData);
+  	this.storage.set(data.updated_at, newData);
+  }
+
+  getAll(){
+  	let allNotes = []
+  	this.storage.forEach((value,key,iterationNumber) => {
+  		allNotes.push(value);
+  	});
+  	return allNotes;
   }
 
 }
