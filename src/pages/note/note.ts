@@ -14,18 +14,19 @@ import { Data } from '../../providers/data';
 })
 export class NotePage {
 
-	public title;
-	public content;
+	public note;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   					public dataService: Data, public events: Events) {
-
+    this.note = this.navParams.get('note');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotePage');
-    this.title = this.navParams.get('note').title;
-    this.content = this.navParams.get('note').content;
+    
+    console.log("this note", this.note);
+    // this.title = this.navParams.get('note').title;
+    // this.content = this.navParams.get('note').content;
   }
 
   logVal(title){
@@ -34,16 +35,45 @@ export class NotePage {
   }
 
   saveNote(){
-  	
-  	let timeStamp = Date.now();
-  	let newItem = {
-  		title: this.title,
-  		content: this.content,
-  		updated_at: timeStamp
-  	};
-  	console.log("newnote: ", newItem);
-  	this.dataService.set(newItem);
-  	this.events.publish('note:saved', newItem, timeStamp);
+    let timeStamp = Date.now();
+    // let storeLength = this.dataService.length();
+  	// if note has id.. update note
+    //if no id create note 
+  	this.note.updated_at = timeStamp;
+
+    if(this.note.id) {
+      console.log("update note", this.note.id);
+      this.dataService.set(this.note)
+          .then((note) => {
+            this.events.publish('note:saved', note);
+          });
+
+    }else{
+      
+      this.dataService.length().then((storeLength) => {
+        console.log("create note", storeLength);
+        let noteID = storeLength+1;
+        this.note.id = noteID;
+
+        return this.dataService.set(this.note);
+
+      })
+      .then((note) => {
+        console.log("saved note", note);
+        this.events.publish('note:saved', note);
+      });
+      
+
+    }
+
+  	// let newItem = {
+  	// 	title: this.title,
+  	// 	content: this.content,
+  	// 	updated_at: timeStamp
+  	// };
+  	// console.log("newnote: ", newItem);
+  	// this.dataService.set(newItem);
+  	// this.events.publish('note:saved', newItem, timeStamp);
   }
 
 }

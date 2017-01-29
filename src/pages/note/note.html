@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-title>
-    	<ion-input type="text" [(ngModel)]="title" (blur)="logVal(title)" (focus)="logVal(title)">
+    	<ion-input type="text" [(ngModel)]="note.title" (blur)="logVal(note.title)" (focus)="logVal(note.title)">
   		</ion-input>
   	</ion-title>
   	<ion-buttons end>
@@ -22,7 +22,7 @@
 
 
 <ion-content padding>
-<ion-textarea [(ngModel)]="content" (blur)="logVal(content)" (focus)="logVal(content)" class="txh">
+<ion-textarea [(ngModel)]="note.content" (blur)="logVal(note.content)" (focus)="logVal(note.content)" class="txh">
 </ion-textarea>
 
 </ion-content>
