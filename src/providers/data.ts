@@ -23,8 +23,11 @@ export class Data {
   }
 
   set(data){
-  	let newData = JSON.stringify(data);
-  	this.storage.set(data.updated_at.toString(), newData);
+
+    let newData = JSON.stringify(data);
+  	return this.storage.set(data.id.toString(), newData);
+  	
+  	
   }
 
   getAll(){
@@ -33,6 +36,10 @@ export class Data {
   		allNotes.push(JSON.parse(value));
   	});
   	return allNotes;
+  }
+
+  length(){
+    return this.storage.length();
   }
 
 }
