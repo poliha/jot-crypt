@@ -22,10 +22,19 @@ export class Home {
   	console.log("home view loaded");
   	this.notes = this.dataService.getAll();
   	console.log("notes", this.notes);
-  	this.events.subscribe('note:saved', (note, timeStamp) => {
-		  // user and time are the same arguments passed in `events.publish(user, time)`
-		  
-		  this.notes = this.dataService.getAll();
+  	this.events.subscribe('note:saved', (note) => {
+		  let noteObj = JSON.parse(note);
+		  this.notes.forEach((n) => {
+        if(n.id == noteObj.id) {
+          console.log("match found... swapping");
+          console.log("n before", n);
+          console.log("noteobj", noteObj);
+          n = noteObj;
+          console.log("n after", n);
+        }
+      });
+
+		  // this.notes = this.dataService.getAll();
 		  // console.log("notes", this.notes);
 		});
   }
@@ -38,8 +47,14 @@ export class Home {
   }
 
   newNote(){
+    let newItem = {
+      id: "",
+      title: "",
+      content: "",
+      updated_at: ""
+    };
   	this.navCtrl.push(NotePage, {
-    	note: {}
+    	note: newItem
   	});
   }
 
